@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // File: SevenSdSignalGen.v
 // Author: BlackIsDevin (https://github.com/BlackIsDevin)
-// Origin Location: To be determined
+// Origin Location: https://github.com/BlackIsDevin/MimasA7-7SD-Tester/blob/master/7sdSetter.src/SevenSdSignalGen.v
 //
 // Creation Date: 3/6/2021‏‎
 // Target Devices: Mimas A7 Revision V3 Development Board 
