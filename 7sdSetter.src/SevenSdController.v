@@ -15,7 +15,7 @@
 // Dependencies:
 //     ButtonDebouncer.v   used for button debouncing
 //     SevenSDSignalGen.v  used for generating seven seg display signals
-// Revision: 1.0 - Created and Documented
+// Revision: 1.1 - Added an initial state for value
 ////////////////////////////////////////////////////////////////////////////////
 module SevenSdController(
     input clk,
@@ -46,6 +46,11 @@ module SevenSdController(
     ButtonDebouncer btnLeftDebouncer(.clk(clk), .buttonState(btnLeft), .debouncedPosedgePulse(btnLeftPulse));
     ButtonDebouncer btnRightDebouncer(.clk(clk), .buttonState(btnRight), .debouncedPosedgePulse(btnRightPulse));
     
+    initial begin
+        // this output equates to "hi;)"
+        value = 32'b01111111111001111001001101011100;
+    end
+
     always @(posedge clk) begin
         if (btnUpPulse) // if pressed, append 1st digit
             value <= {value[31:8], alignedDips};
