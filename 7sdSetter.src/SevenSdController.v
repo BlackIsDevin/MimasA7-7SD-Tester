@@ -16,56 +16,30 @@ module SevenSdController(
 
     wire [7:0] alignedDips = {dips[4:2], dips[7], dips[1:0], dips[5], dips[6]};
     assign leds = ~dips;
-    
-    reg [24:0] btnUpDebouncer;
-    reg [24:0] btnDownDebouncer;
-    reg [24:0] btnLeftDebouncer;
-    reg [24:0] btnRightDebouncer;
 
-    reg btnUpState;
-    reg btnDownState;
-    reg btnLeftState;
-    reg btnRightState;
+    wire btnUpPulse;
+    wire btnDownPulse;
+    wire btnLeftPulse;
+    wire btnRightPulse;
+    
+    ButtonDebouncer btnUpDebouncer(.clk(clk), .buttonState(btnUp), .debouncedPosedgePulse(btnUpPulse));
+    ButtonDebouncer btnDownDebouncer(.clk(clk), .buttonState(btnDown), .debouncedPosedgePulse(btnDownPulse));
+    ButtonDebouncer btnLeftDebouncer(.clk(clk), .buttonState(btnLeft), .debouncedPosedgePulse(btnLeftPulse));
+    ButtonDebouncer btnRightDebouncer(.clk(clk), .buttonState(btnRight), .debouncedPosedgePulse(btnRightPulse));
     
     always @(posedge clk) begin
-        // increment debouncers
-        if (|btnUpDebouncer) btnUpDebouncer <= btnUpDebouncer + 1;
-        if (|btnDownDebouncer) btnDownDebouncer <= btnDownDebouncer + 1;
-        if (|btnLeftDebouncer) btnLeftDebouncer <= btnLeftDebouncer + 1;
-        if (|btnRightDebouncer) btnRightDebouncer <= btnRightDebouncer + 1;
+        if (btnUpPulse) // if pressed, append 1st digit
+            value <= {value[31:8], alignedDips};
 
-        if (btnUp != btnUpState && ~|btnUpDebouncer)
-        begin
-            btnUpDebouncer <= btnUpDebouncer + 1;
-            btnUpState <= btnUp;
-            if (btnUpState) // if pressed, append 1st digit
-                value <= {value[31:8], alignedDips};
-        end
+        if (btnLeftPulse) // if pressed, append 2nd digit
+            value <= {alignedDips, value[23:0]};
 
-        if (btnLeft != btnLeftState && ~|btnLeftDebouncer)
-        begin
-            btnLeftDebouncer <= btnLeftDebouncer + 1;
-            btnLeftState <= btnLeft;
-            if (btnLeftState) // if pressed, append 2nd digit
-                value <= {alignedDips, value[23:0]};
-        end
+        if (btnDownPulse) // if pressed, append 3rd digit
+            value <= {value[31:24], alignedDips, value[15:0]};
 
-        if (btnDown != btnDownState && ~|btnDownDebouncer)
-        begin
-            btnDownDebouncer <= btnDownDebouncer + 1;
-            btnDownState <= btnDown;
-            if (btnDownState) // if pressed, append 3rd digit
-                value <= {value[31:24], alignedDips, value[15:0]};
-        end
+        if (btnRightPulse) // if pressed, append 4th digit
+            value <= {value[31:16], alignedDips, value[7:0]}; 
 
-        if (btnRight != btnRightState && ~|btnRightDebouncer)
-        begin
-            btnRightDebouncer <= btnRightDebouncer + 1;
-            btnRightState <= btnRight;
-            if (btnRightState) // if pressed, append 4th digit
-                value <= {value[31:16], alignedDips, value[7:0]}; 
-        end
-        
     end
 
 endmodule
