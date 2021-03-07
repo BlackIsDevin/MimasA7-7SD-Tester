@@ -6,16 +6,17 @@ module SevenSdController(
     input btnLeft,
     input btnRight,
 
-    output reg [7:0] displayOut,
-    output reg [3:0] enableOut,
-    output reg [7:0] leds 
+    output [7:0] displayOut,
+    output [3:0] enableOut,
+    output [7:0] leds 
 );
 
     reg [31:0] value; // value to output
     SevenSdSignalGen ssdSignalGen(clk, value, displayOut, enableOut);
 
     wire [7:0] alignedDips = {dips[4:2], dips[7], dips[1:0], dips[5], dips[6]};
-
+    assign leds = ~dips;
+    
     reg [24:0] btnUpDebouncer;
     reg [24:0] btnDownDebouncer;
     reg [24:0] btnLeftDebouncer;
@@ -27,12 +28,11 @@ module SevenSdController(
     reg btnRightState;
     
     always @(posedge clk) begin
-        leds = ~dips;
         // increment debouncers
-        if (|btnUpDebouncer) btnUpDebouncer <+ btnUpDebouncer + 1;
-        if (|btnDownDebouncer) btnDownDebouncer <+ btnDownDebouncer + 1;
-        if (|btnLeftDebouncer) btnLeftDebouncer <+ btnLeftDebouncer + 1;
-        if (|btnRightDebouncer) btnRightDebouncer <+ btnRightDebouncer + 1;
+        if (|btnUpDebouncer) btnUpDebouncer <= btnUpDebouncer + 1;
+        if (|btnDownDebouncer) btnDownDebouncer <= btnDownDebouncer + 1;
+        if (|btnLeftDebouncer) btnLeftDebouncer <= btnLeftDebouncer + 1;
+        if (|btnRightDebouncer) btnRightDebouncer <= btnRightDebouncer + 1;
 
         if (btnUp != btnUpState && ~|btnUpDebouncer)
         begin

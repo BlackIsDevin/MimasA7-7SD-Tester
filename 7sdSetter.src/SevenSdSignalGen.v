@@ -23,19 +23,19 @@ module SevenSdSignalGen(
             case(enableCounter)
                 2'b00: begin
                     enableOut <= 4'b0111;
-                    activeValue <= signals[7:0];
+                    displayOut <= signals[7:0];
                 end
                 2'b01: begin
                     enableOut <= 4'b1110;
-                    activeValue <= signals[15:8];
+                    displayOut <= signals[15:8];
                 end
                 2'b10: begin
                     enableOut <= 4'b1101;
-                    activeValue <= value[23:16];
+                    displayOut <= signals[23:16];
                 end
                 2'b11: begin
                     enableOut <= 4'b1011;
-                    activeValue <= value[31:24];
+                    displayOut <= signals[31:24];
                 end
             endcase
         end
