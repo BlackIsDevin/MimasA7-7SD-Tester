@@ -1,3 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// File: SevenSdController.v
+// Author: BlackIsDevin (https://github.com/BlackIsDevin)
+// Origin Location: To be determined
+//
+// Creation Date: 3/6/2021‏‎
+// Target Devices: Mimas A7 Revision V3 Development Board 
+// Description: Top Module, implements a simple circuit for the Mimas A7R3
+//     DevBoard that allows the user to modify the output of the seven
+//     segment display using the onboard DIP switches and buttons. Use the
+//     dip switches to set the desired output, and then push the top, left,
+//     botton, and right buttons to set the 1st, 2nd, 3rd, and 4th digit of
+//     the seven segment display respectively.
+//
+// Dependencies:
+//     ButtonDebouncer.v   used for button debouncing
+//     SevenSDSignalGen.v  used for generating seven seg display signals
+// Revision: 1.0 - Created and Documented
+////////////////////////////////////////////////////////////////////////////////
 module SevenSdController(
     input clk,
     input [7:0] dips,
