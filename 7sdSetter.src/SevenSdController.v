@@ -38,7 +38,7 @@ module SevenSdController(
         begin
             btnUpDebouncer <= btnUpDebouncer + 1;
             btnUpState <= btnUp;
-            if (!btnUpState) // if pressed, append left digit
+            if (btnUpState) // if pressed, append 1st digit
                 value <= {value[31:8], alignedDips};
         end
 
@@ -46,15 +46,15 @@ module SevenSdController(
         begin
             btnLeftDebouncer <= btnLeftDebouncer + 1;
             btnLeftState <= btnLeft;
-            if (!btnLeftState) // if pressed, append left digit
-                value <= {value[31:16], alignedDips, value[7:0]};
+            if (btnLeftState) // if pressed, append 2nd digit
+                value <= {alignedDips, value[23:0]};
         end
 
         if (btnDown != btnDownState && ~|btnDownDebouncer)
         begin
             btnDownDebouncer <= btnDownDebouncer + 1;
             btnDownState <= btnDown;
-            if (!btnDownState) // if pressed, append left digit
+            if (btnDownState) // if pressed, append 3rd digit
                 value <= {value[31:24], alignedDips, value[15:0]};
         end
 
@@ -62,8 +62,8 @@ module SevenSdController(
         begin
             btnRightDebouncer <= btnRightDebouncer + 1;
             btnRightState <= btnRight;
-            if (!btnRightState) // if pressed, append left digit
-                value <= {alignedDips, value[23:0]};
+            if (btnRightState) // if pressed, append 4th digit
+                value <= {value[31:16], alignedDips, value[7:0]}; 
         end
         
     end
