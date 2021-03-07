@@ -1,3 +1,17 @@
+////////////////////////////////////////////////////////////////////////////////
+// File: SevenSdSignalGen.v
+// Author: BlackIsDevin (https://github.com/BlackIsDevin)
+// Origin Location: To be determined
+//
+// Creation Date: 3/6/2021‏‎
+// Target Devices: Mimas A7 Revision V3 Development Board 
+// Description: This module takes in a 32 bit value, and converts it to
+//     displayOut and enableOut signals for the seven seg display onboard
+//     the Mimas A7R3 DevBoard.
+//
+// Dependencies: None
+// Revision: 1.0 - Created and Documented
+////////////////////////////////////////////////////////////////////////////////
 module SevenSdSignalGen(
     input clk,
     input [31:0] signals,
