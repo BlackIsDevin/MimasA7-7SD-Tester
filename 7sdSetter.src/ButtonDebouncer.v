@@ -12,7 +12,7 @@
 //     of buttonState changing, which edge should be self-explanatory.
 //
 // Dependencies: None
-// Revision: 1.0 - Created and Documented
+// Revision: 1.1 - Added initial block
 ////////////////////////////////////////////////////////////////////////////////
 
 module ButtonDebouncer(
@@ -25,7 +25,11 @@ module ButtonDebouncer(
 );
 
     reg [24:0] debouncerReg;
-
+    initial begin
+        debouncedState = buttonState;
+        debouncedPosedgePulse = 0;
+        debouncedNegedgePulse = 0;
+    end
     always @(negedge clk) begin
 
         // increment debouncer Register if it isn't zero
