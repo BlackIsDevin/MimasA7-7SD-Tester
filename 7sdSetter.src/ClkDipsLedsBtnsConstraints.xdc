@@ -45,14 +45,16 @@ set_property PACKAGE_PIN N17 [get_ports btnUp]
 set_property PACKAGE_PIN P20 [get_ports btnLeft]
 set_property PACKAGE_PIN P19 [get_ports btnDown]
 set_property PACKAGE_PIN P17 [get_ports btnRight]
+set_property PACKAGE_PIN M2  [get_ports btnReset]
 
 set_property IOSTANDARD LVCMOS33 [get_ports btnUp]
 set_property IOSTANDARD LVCMOS33 [get_ports btnLeft]
 set_property IOSTANDARD LVCMOS33 [get_ports btnDown]
 set_property IOSTANDARD LVCMOS33 [get_ports btnRight]
+set_property IOSTANDARD LVCMOS33 [get_ports btnReset]
 
 set_property PULLUP true [get_ports btnUp]
 set_property PULLUP true [get_ports btnLeft]
 set_property PULLUP true [get_ports btnDown]
 set_property PULLUP true [get_ports btnRight]
-
+set_property PULLDOWN true [get_ports btnReset] 
